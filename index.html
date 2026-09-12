@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Electricity Bill Estimator</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+
+<body>
+    <div class="container">
+        <h1>Electricity Bill Estimator</h1>
+
+        <p class="subtitle">
+            Enter your monthly electricity usage to estimate your bill.
+        </p>
+
+        <form action="/calculate" method="POST">
+
+            <label for="units">
+                Units Consumed (kWh)
+            </label>
+
+            <input type="number" id="units" name="units" placeholder="e.g. 150" min="1" required>
+            
+            <button type="submit">Calculate Bill</button>
+        </form>
+
+
+        {% if bill %}
+
+        <div class="result">
+
+            <h2>Bill Summary</h2>
+
+            <div class="row">
+                <span>Units Used</span>
+                <strong>{{ units }} kWh</strong>
+            </div>
+
+            <div class="row">
+                <span>Energy Charge</span>
+                <strong>{{ energy_charge }}</strong>
+            </div>
+
+            <div class="row">
+                <span>Service Charge</span>
+                <strong> {{ service_charge }}</strong>
+            </div>
+
+            <hr>
+            <div class="total">
+                <span>Total Bill</span>
+                <strong> {{ bill }}</strong>
+            </div>
+
+            <p class="message">
+                {{ message }}
+            </p>
+
+        </div>
+
+        {% endif %}
+
+        <div class="rates">
+            <h3>Electricity Rates</h3>
+            <p>First 100 units -> 5 per unit</p>
+            <p>101-200 units -> 7 per unit</p>
+            <p>Above 200 units -> 10 per unit</p>
+            <p>Fixed service charge -> 50</p>
+        </div>
+    </div>
+</body>
+</html>
